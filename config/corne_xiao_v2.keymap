@@ -1,13 +1,7 @@
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-
-#define DEFAULT 0
-#define NAV     1
-#define MEDIA   2
-#define NUM     3
-#define SYM     4
-#define FUN     5
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     combos {
@@ -28,34 +22,83 @@
         default_layer {
             display-name = "base";
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+
+            // -------------------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |                    |  Y  |  U   |  I  |  O  |  P  | BKSP |
+            // |  ESC |  A  |  S  |  D  |  F  |  G  |                    |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | SHFT |  Z  |  X  |  C  |  V  |  B  |        |  |        |  N  |  M   |  ,  |  .  |  /  | CTRL |
+            //                    | GUI | LWR | RET |                    | SPC | RSE  | ALT |
+
             bindings = <
-                &none &kp Q       &kp W      &kp F          &kp P          &kp B                 &kp J        &kp L         &kp U        &kp Y      &kp SQT     &none
-                &none &mt LGUI A  &mt ALT R  &mt CTRL S     &mt LSHFT T    &kp G                 &kp M        &mt RSHFT N   &mt CTRL E   &mt ALT E  &mt LGUI O  &none
-                &none &kp Z       &kp X      &kp C          &kp D          &kp V                 &kp K        &kp H         &kp COMMA    &kp DOT    &kp FSLH    &none
-                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &lt SYM RET  &lt NUM BSPC  &lt FUN DEL
+&none  &kp Q       &kp W       &kp F        &kp P        &kp B        &kp J      &kp L            &kp U        &kp Y       &kp SQT     &none
+&none  &mt LGUI A  &mt LALT R  &mt LCTRL S  &mt LSHFT T  &kp G        &kp M      &mt RSHFT N      &mt RCTRL E  &mt RALT I  &mt RGUI O  &none
+&none  &lt 3 Z     &kp X       &kp C        &kp D        &kp V        &kp K      &kp H            &kp COMMA    &kp DOT     &lt 3 FSLH  &none
+                               &lt 4 ESC    &lt 1 SPACE  &lt 2 TAB    &lt 6 RET  &lt 5 BACKSPACE  &lt 7 DEL
             >;
         };
 
-        nav_layer {
-            display-name = "nav";
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+        nav {
             bindings = <
-                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp K_REDO   &kp K_PASTE   &kp K_COPY   &kp K_CUT  &kp UNDO    &none
-                &none &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            &kp CAPS     &kp LEFT      &kp DOWN     &kp UP     &kp RIGHT   &none
-                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp C_AC_INS &kp HOME      &kp PG_DN    &kp PG_UP  &kp END     &none
-                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp RET      &kp BSPC      &kp DEL
+&none  &none     &none     &none      &none       &none    &kp K_REDO  &kp K_PASTE  &kp K_COPY  &kp K_CUT  &kp K_UNDO  &none
+&none  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHIFT  &none    &kp CLCK    &kp LEFT     &kp DOWN    &kp UP     &kp RIGHT   &none
+&none  &none     &none     &none      &none       &none    &kp INS     &kp HOME     &kp PG_DN   &kp PG_UP  &kp END     &none
+                           &none      &none       &none    &kp RET     &kp BSPC     &kp DELETE
             >;
         };
 
-        media_layer {
-            display-name = "media";
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+        mouse {
             bindings = <
-                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &none        &none         &none        &none        &none        &none
-                &none &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            &none        &kp K_PREV    &kp K_VOL_DN &kp K_VOL_UP &mt K_NEXT   &none
-                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &none        &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp STOP     &kp C_PP      &kp MUTE   
+&none  &none   &none   &none   &none   &none     &trans     &trans          &trans          &trans        &trans           &none
+&none  &trans  &trans  &trans  &trans  &trans    &none      &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &none
+&none  &none   &none   &none   &none   &none     &none      &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &none
+                       &none   &none   &none     &mkp RCLK  &mkp LCLK       &mkp MCLK
+            >;
+        };
+
+        button {
+            bindings = <
+&none  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &kp K_REDO  &kp K_PASTE  &kp K_COPY  &kp K_CUT  &kp K_UNDO  &none
+&none  &kp LGUI    &kp LALT   &kp LCTRL   &kp LSHIFT   &none         &none       &kp RSHFT    &kp RCTRL   &kp RALT   &kp RGUI    &none
+&none  &kp K_UNDO  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_REDO    &kp K_REDO  &kp K_PASTE  &kp K_COPY  &kp K_CUT  &kp K_UNDO  &none
+                              &mkp MCLK   &mkp LCLK    &mkp RCLK     &mkp RCLK   &mkp LCLK    &mkp MCLK
+            >;
+        };
+
+        media {
+            bindings = <
+&none  &none     &none     &none      &none      &none    &none       &none         &none         &none         &none         &none
+&none  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none    &none       &kp K_PREV    &kp C_VOL_DN  &kp C_VOL_UP  &kp K_NEXT    &none
+&none  &none     &none     &none      &none      &none    &none       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &none
+                           &none      &none      &none    &kp K_STOP  &kp K_PP      &kp K_MUTE
+            >;
+        };
+
+        num {
+            bindings = <
+&none  &kp LEFT_BRACKET  &kp N7  &kp N8   &kp N9  &kp RIGHT_BRACKET    &none  &none       &none      &none     &none     &none
+&none  &kp SEMI          &kp N4  &kp N5   &kp N6  &kp EQUAL            &none  &kp RSHIFT  &kp RCTRL  &kp RALT  &kp RGUI  &none
+&none  &kp GRAVE         &kp N1  &kp N2   &kp N3  &kp BACKSLASH        &none  &none       &none      &none     &none     &none
+                                 &kp DOT  &kp N0  &kp MINUS            &none  &none       &none
+            >;
+        };
+
+        sym {
+            bindings = <
+&none  &kp LEFT_BRACE  &kp AMPS    &kp STAR              &kp LEFT_PARENTHESIS   &kp RIGHT_BRACE    &none  &none      &none      &none     &none     &none
+&none  &kp COLON       &kp DOLLAR  &kp PERCENT           &kp CARET              &kp PLUS           &none  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI  &none
+&none  &kp TILDE       &kp EXCL    &kp AT                &kp HASH               &kp PIPE           &none  &none      &none      &none     &none     &none
+                                   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER          &none  &none      &none
+            >;
+        };
+
+        fun {
+            bindings = <
+&none  &kp F12  &kp F7  &kp F8  &kp F9     &none      &none  &none       &none      &none     &none     &none
+&none  &kp F11  &kp F4  &kp F5  &kp F6     &none      &none  &kp RSHIFT  &kp RCTRL  &kp RALT  &kp RGUI  &none
+&none  &kp F10  &kp F1  &kp F2  &kp F3     &none      &none  &none       &none      &none     &none     &none
+                        &none   &kp SPACE  &kp TAB    &none  &none       &none
             >;
         };
     };
 };
+
