@@ -9,8 +9,6 @@
 #define SYM     4
 #define FUN     5
 
-#define NOP &none
-
 / {
     combos {
         compatible = "zmk,combos";
@@ -31,10 +29,10 @@
             display-name = "base";
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
             bindings = <
-                NOP &kp Q       &kp W      &kp F          &kp P          &kp B                 &kp J        &kp L         &kp U        &kp Y      &kp SQT     NOP
-                NOP &mt LGUI A  &mt ALT R  &mt CTRL S     &mt LSHFT T    &kp G                 &kp M        &mt RSHFT N   &mt CTRL E   &mt ALT E  &mt LGUI O  NOP
-                NOP &kp Z       &kp X      &kp C          &kp D          &kp V                 &kp K        &kp H         &kp COMMA    &kp DOT    &kp FSLH    NOP
-                                           &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &lt SYM RET  &lt NUM BSPC  &lt FUN DEL
+                &none &kp Q       &kp W      &kp F          &kp P          &kp B                 &kp J        &kp L         &kp U        &kp Y      &kp SQT     &none
+                &none &mt LGUI A  &mt ALT R  &mt CTRL S     &mt LSHFT T    &kp G                 &kp M        &mt RSHFT N   &mt CTRL E   &mt ALT E  &mt LGUI O  &none
+                &none &kp Z       &kp X      &kp C          &kp D          &kp V                 &kp K        &kp H         &kp COMMA    &kp DOT    &kp FSLH    &none
+                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &lt SYM RET  &lt NUM BSPC  &lt FUN DEL
             >;
         };
 
@@ -42,10 +40,10 @@
             display-name = "nav";
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
             bindings = <
-                NOP &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp K_REDO   &kp K_PASTE   &kp K_COPY   &kp K_CUT  &kp UNDO    NOP
-                NOP &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            &kp CAPS     &kp LEFT      &kp DOWN     &kp UP     &kp RIGHT   NOP
-                NOP &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp C_AC_INS &kp HOME      &kp PG_DN    &kp PG_UP  &kp END     NOP
-                                           &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp RET      &kp BSPC      &kp DEL
+                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp K_REDO   &kp K_PASTE   &kp K_COPY   &kp K_CUT  &kp UNDO    &none
+                &none &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            &kp CAPS     &kp LEFT      &kp DOWN     &kp UP     &kp RIGHT   &none
+                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &kp C_AC_INS &kp HOME      &kp PG_DN    &kp PG_UP  &kp END     &none
+                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp RET      &kp BSPC      &kp DEL
             >;
         };
 
@@ -53,25 +51,11 @@
             display-name = "media";
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
             bindings = <
-                NOP &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            NOP          NOP           NOP          NOP          NOP          NOP
-                NOP &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            NOP          &kp K_PREV    &kp K_VOL_DN &kp K_VOL_UP &mt K_NEXT   NOP
-                NOP &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            NOP          &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 NOP
-                                           &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp STOP     &kp C_PP      &kp MUTE   
+                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &none        &none         &none        &none        &none        &none
+                &none &kp LGUI    &kp ALT    &kp CTRL       &kp LSHFT      &kp &trans            &none        &kp K_PREV    &kp K_VOL_DN &kp K_VOL_UP &mt K_NEXT   &none
+                &none &kp &trans  &kp &trans &kp &trans     &kp &trans     &kp &trans            &none        &bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
+                                             &lt MEDIA ESC  &lt NAV SPACE  &lt MOUSE TAB         &kp STOP     &kp C_PP      &kp MUTE   
             >;
         };
-
-// -------------------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |                    |  Y  |  U   |  I  |  O  |  P  | BKSP |
-// |  ESC |  A  |  S  |  D  |  F  |  G  |                    |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |        |  |        |  N  |  M   |  ,  |  .  |  /  | CTRL |
-//                    | GUI | LWR | RET |                    | SPC | RSE  | ALT |
-//             bindings = <
-// &kp TAB   &kp Q &kp W &kp E    &kp R &kp T                      &kp Z     &kp U &kp I     &kp O   &kp P    &kp BSPC
-// &kp ESC   &kp A &kp S &kp D    &kp F &kp G                      &kp H     &kp J &kp K     &kp L   &kp SEMI &kp SQT
-// &kp LSHFT &kp Y &kp X &kp C    &kp V &kp B     &none      &none &kp N     &kp M &kp COMMA &kp DOT &kp FSLH &kp CTRL
-//                       &kp LGUI &mo 1 &kp RET                    &kp SPACE &mo 2 &kp LALT
-//             >;
-//         };
-
     };
 };
