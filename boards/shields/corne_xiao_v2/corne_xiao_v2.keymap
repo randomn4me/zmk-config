@@ -16,6 +16,33 @@
 };
 
 / {
+    behaviors {
+        hl: home_row_mod_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = < ... >; // List of keys on the right side of the keyboard
+            hold-trigger-on-release;
+        };
+        hr: home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = < ... >; // List of keys on the left side of the keyboard
+            hold-trigger-on-release;
+        };
+    };
+};
+
+/ {
     keymap {
         compatible = "zmk,keymap";
 
@@ -31,7 +58,7 @@
 
             bindings = <
 &none  &kp Q       &kp W       &kp F        &kp P        &kp B        &kp J      &kp L            &kp U        &kp Y       &kp SQT     &none
-&none  &mt LGUI A  &mt LALT R  &mt LCTRL S  &mt LSHFT T  &kp G        &kp M      &mt RSHFT N      &mt RCTRL E  &mt RALT I  &mt RGUI O  &none
+&none  &hl LGUI A  &hl LALT R  &hl LCTRL S  &hl LSHFT T  &kp G        &kp M      &hr RSHFT N      &hr RCTRL E  &hr RALT I  &hr RGUI O  &none
 &none  &lt 3 Z     &kp X       &kp C        &kp D        &kp V        &kp K      &kp H            &kp COMMA    &kp DOT     &lt 3 FSLH  &none
                                &lt 4 ESC    &lt 1 SPACE  &lt 2 TAB    &lt 6 RET  &lt 5 BACKSPACE  &lt 7 DEL
             >;
