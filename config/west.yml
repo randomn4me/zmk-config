@@ -6,6 +6,8 @@ manifest:
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
     - name: caksoylar
       url-base: https://github.com/caksoylar
+    - name: manna-harbour
+      url-base: https://github.com/manna-harbour
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -13,6 +15,9 @@ manifest:
       import: app/west.yml
     - name: zmk-rgbled-widget
       remote: caksoylar
+      revision: main
+    - name: miryoku_zmk
+      remote: manna-harbour
       revision: main
   self:
     path: config
